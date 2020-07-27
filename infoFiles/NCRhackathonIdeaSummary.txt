@@ -1,0 +1,18 @@
+Using elementary cellular automata rule sets to generate keys that result in
+a key space, we can add more robust protection for our customers and their
+customers. Elementary cellular automata generates continuous unique binary
+arrays based on rule sets and seed data. By having users and servers hold
+different components of the rule sets and seed data, we can control the process
+of verifying permissions. The servers are able to use a subspace of the key
+space for authentication. This subspace theoretically has no upper bound for
+ size and this could be implemented in two, three, four, etc dimensions
+ yielding further complexity to the algorithm.
+
+ A user would have their own part
+ of seed data and part of a rule set, the server would randomly generate the
+ other part of the seed data and the other part of the rule set. Then a random
+ subspace would be selected from the generated key space, which would replace
+ the user's previous seed and rule set. Upon the next use of the algorithm,
+ the server would check to see that the the user's seed data and rule set are
+ in fact derived from the previous subspace. This would result in unique
+ changing keys to protect what is sensitive to users.

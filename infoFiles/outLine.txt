@@ -1,0 +1,48 @@
+main objects:
+
+user (local)
+
+server (remote)
+
+
+suplementary objects
+
+seed 1/2 (local) a subspace of the key space
+
+rule set 1/2 (local) rng
+
+seed 1/2 (remote) a subspace of the key space
+
+rule set 1/2 (remote) rng
+
+keyspace (local) (includes machine id, user id)(also in hex?)
+
+keyspace (remote) ()
+
+
+main process:
+
+user creates account
+first seed 1/2 is generated using some type of information from user
+first rule set 1/2 is generated using some type of information from user
+first seed 1/2 is generated using some type of information from server
+first rule set 1/2 is generated using some type of information from server
+
+code is run using the pieces from both
+first keyspace is determined
+keyspace is stored locally and remotely
+(not machine specific)
+the keyspaces are compared to make sure they match
+
+second seed 1/2 is generated using some type of information from keyspace
+second rule set 1/2 is generated using some type of information from keyspace
+second seed 1/2 is generated using some type of information from server
+second rule set 1/2 is generated using some type of information from server
+
+A new key is generated every 24 hours and it is updated when the user next
+communicates with the server
+
+
+suplementary process:
+
+generating first seed:
