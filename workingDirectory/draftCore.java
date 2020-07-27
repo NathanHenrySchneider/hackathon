@@ -1,20 +1,27 @@
 
 
 import java.util.Random;
+import java.util.*;
 
-public class Generator {
+public class draftCore {
 
-  private arrayLength = 50;
-  private fullSpace = [][50];
-  private Map<int, int> ruleSet = new HashMap
+  private int arrayLength = 50;
+  private int[][] fullSpace = new int[arrayLength][50];
+  private Map<Integer, Integer> ruleSet = new HashMap();
 
-  public Generator(int length) {
-    this.arrayLength = length
+  public draftCore(int length) {
+    this.arrayLength = length;
     fullSpace[0] = generateInitialArray();
   }
 
+  private void setRules(HashMap.Entry<Integer,Integer>[] rules) {
+    for (HashMap.Entry<Integer, Integer> r : rules) {
+      ruleSet.put(r);
+    }
+  }
+
   private int[] generateInitialArray() {
-    int[] arr = [arrayLength];
+    int[] arr = new int[arrayLength];
     Random rng = new Random();
     int n = 0;
     while (n < arrayLength) {
@@ -37,12 +44,14 @@ public class Generator {
       return pattern;
   }
 
-  private patternAnalysis(int index, int cycleCount) {
-    int pattern =
+  private int patternAnalysis(int index, int cycleCount) {
+    int pattern = findPatternForIndex(index, cycleCount);
+    return ruleSet.get(pattern);
+
   }
 
-  private runAtCount(int cycleCount) {
-    int[] tempArr = [0] * arrayLength;
+  private void runAtCount(int cycleCount) {
+    int[] tempArr = new int[0] * arrayLength;
     int index = 0;
     while(index < arrayLength) {
       tempArr[index] = patternAnalysis(index, cycleCount);
@@ -50,10 +59,11 @@ public class Generator {
     }
   }
 
-  private fillSpace() {
+  private void fillSpace() {
     int cycleCount = 1;
-    while (cyclesCount < arrayLength) {
+    while (cycleCount < arrayLength) {
       runAtCount(cycleCount);
+      cycleCount++;
     }
   }
 
