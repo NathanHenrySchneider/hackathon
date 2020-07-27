@@ -11,16 +11,16 @@ public class draftCore {
 
   public draftCore(int length) {
     this.arrayLength = length;
-    fullSpace[0] = generateInitialArray();
+    generateInitialArray();
   }
 
   private void setRules(HashMap.Entry<Integer,Integer>[] rules) {
     for (HashMap.Entry<Integer, Integer> r : rules) {
-      ruleSet.put(r);
+      ruleSet.put(r.getKey(), r.getValue());
     }
   }
 
-  private int[] generateInitialArray() {
+  private void generateInitialArray() {
     int[] arr = new int[arrayLength];
     Random rng = new Random();
     int n = 0;
@@ -36,7 +36,7 @@ public class draftCore {
     int pattern = 0;
       if (index == 0) {
         pattern += (10 * fullSpace[cycleCount][index]) + fullSpace[cycleCount][index + 1];
-      } else if (index = arrayLength - 1) {
+      } else if (index == arrayLength - 1) {
         pattern += (100 * fullSpace[cycleCount][index - 1]) + (10 * fullSpace[cycleCount][index]);
       } else {
         pattern += (100 * fullSpace[cycleCount][index - 1]) + (10 * fullSpace[cycleCount][index]) + fullSpace[cycleCount][index + 1];
@@ -51,7 +51,7 @@ public class draftCore {
   }
 
   private void runAtCount(int cycleCount) {
-    int[] tempArr = new int[0] * arrayLength;
+    int[] tempArr = new int[arrayLength];
     int index = 0;
     while(index < arrayLength) {
       tempArr[index] = patternAnalysis(index, cycleCount);
