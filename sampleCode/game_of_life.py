@@ -49,8 +49,8 @@ def print_finite_map():
     #str_prnt += overscores + "\n"
     sys.stdout.write(str_prnt)
     sys.stdout.flush()
-    sys.stdout.write('\x1b['+str(x_bound + 1)+'A')
-    sys.stdout.flush()
+    # sys.stdout.write('\x1b['+str(x_bound + 1)+'A')
+    # sys.stdout.flush()
 
 def generate_initial_table(l,side_one,side_two):
     global map_instances
@@ -231,14 +231,15 @@ def run_cycle():
     str_clear_screen = "\n" * (x_bound + 25)
     print(str_clear_screen)
     cycles_count = 0
-    while(cycles_count < 1000):# or 1 in map_instances[cycles_count]  or map_instances[cycles_count] != map_instances[cycles_count - 1]):
+    while(cycles_count < 50):# or 1 in map_instances[cycles_count]  or map_instances[cycles_count] != map_instances[cycles_count - 1]):
         #print("Cycle: "+str(cycles_count))
-        print_finite_map()
+        #print_finite_map()
         #print("\n")
         run_tick()
         cycles_count += 1
-        time.sleep(.2)
-    sys.stdout.write("\033[1000000;3H"+"\n")
+        #time.sleep(.2)
+    #sys.stdout.write("\033[1000000;3H"+"\n")
+    print_finite_map();
     print("\nEND\n")
 
 def move_points(points_list, x_move, y_move):
