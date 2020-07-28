@@ -1,0 +1,27 @@
+Mini Teams
+
+Rule Set Team:
+  tasks:
+    determine which rule sets are most condusive to generating random numbers
+    Turn them into enums or something similar
+    Make a method that will randomly switch to a new rule set that is different from the previous rule set.
+
+Array Analysis Team:
+  tasks:
+    Finding best way to generate new seeds
+    Finding a way to have a rolling binary number for pattern analysis
+    Determining when to reset the seed data because of a saturation of 0/1 or something similar
+    See if its possible to use binary instead of ints
+
+Architecture Team:
+  tasks:
+    Make the server and user objects.
+    Create the storage system for the user data
+    Make getters/setters
+    Code for issuing the keys from the generator
+
+Generator team (probably all of us):
+  tasks:
+    Set the generator up so its replacing the previous iteration with a new one
+    Have way to change seed data and rule set while the generator is running
+    

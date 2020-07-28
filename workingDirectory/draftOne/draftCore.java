@@ -6,7 +6,7 @@ import java.util.*;
 public class draftCore {
 
   private static int arrayLength;  //The length or each array
-  private static int[][] fullSpace = new int[100][arrayLength]; //The array that contains each iteration as a value
+  private int[][] fullSpace = new int[10][arrayLength]; //The array that contains each iteration as a value
   private Map<Integer, Integer> ruleSet = new HashMap();  //The rule set used to determine how the seed data evolves. Stored as a HashMap for lookup time purposes
 
 
@@ -14,13 +14,13 @@ public class draftCore {
     Constructor for the class. Currently it only takes in the standard length of
       each array. To be clear, this is not the number of iterations. Each iteration
       is an array with a set length that is determined by the Constructor call.
-      The Constructor calls the method generteInitialArray to set up the seed
+      The Constructor calls the method generateInitialArray to set up the seed
       data stored as iteration 0.
     @param length  this is the length or width of the arrays
   */
 
   public draftCore(int length) {
-    this.arrayLength = 100;
+    this.arrayLength = length;
     generateInitialArray();
   }
 
@@ -43,7 +43,7 @@ public class draftCore {
       new array is assigned to fullSpace index 0. We call this the seed data.
   */
   private void generateInitialArray() {
-    int[] arr = new int[100];
+    int[] arr = new int[arrayLength];
     Random rng = new Random();
     int n = 0;
     while (n < arrayLength) {
@@ -138,14 +138,9 @@ public class draftCore {
     String prnt = "";
     for (int[] arr : fullSpace) {
       for (int n : arr) {
-        if (n == 1){
-          prnt += "x ";
-        } else {
-          prnt += "  ";
-        }
+        prnt += n + " ";
       }
-        prnt += "\n";
-
+      prnt += "\n";
     }
     return prnt;
 
