@@ -6,7 +6,6 @@ from rulesets import RULESETS
  #000, 001, 010, 011, 100, 101, 110, 111
 
 SIZE = 1024
-#ITERATIONS = 10
 
 arrayLength = SIZE
 dataCurrent = []
@@ -79,24 +78,6 @@ def translate_to_ASCII(binary_string):
             num += 1
         ascii_string.append(chr(num))
     return ''.join(ascii_string)
-
-def printRulesAndData():
-    global ruleSet
-    global dataCurrent
-    print(dataCurrent, end='\n\n')
-    print(ruleSet)
-
-def printX():
-    global dataCurrent
-    n = 0
-    str = ""
-    while (n < arrayLength):
-        if (dataCurrent[n] == 1):
-            str += "X"
-        else:
-            str += " "
-        n += 1
-    print(str)
 
 def generate():
     arrayLength = SIZE
