@@ -5,10 +5,8 @@ from rulesets import RULESETS
 
  #000, 001, 010, 011, 100, 101, 110, 111
 
-# class Generator():
-
 SIZE = 1024
-ITERATIONS = 10
+#ITERATIONS = 10
 
 arrayLength = SIZE
 dataCurrent = []
@@ -37,7 +35,7 @@ def bitWiseCalc(neighborhood, index):
 def arrayAnalysis():
     global dataCurrent, ruleSet
     count = 0
-    neighborhood = int( ("0" + str(dataCurrent[0]) + str(dataCurrent[1])) , 2)
+    neighborhood = (0<<2) + (dataCurrent[0]<<1) + dataCurrent[1]
     arr = [0] * arrayLength
     index = 2
     while(index < arrayLength + 1):
@@ -51,20 +49,17 @@ def arrayAnalysis():
 
 
 def generatorCycle():
-    global ruleSet
     changeRuleSet()
     while True:
-    #for i in range(ITERATIONS):
-        #print_ASCII()
         arrayAnalysis()
         changeRuleSet()
-    #print_ASCII()
 
 def changeRuleSet():
     global ruleSet
     ruleSet = RULESETS[random.randint(0, len(RULESETS) - 1)]
 
 def translate_to_ASCII(binary_string):
+    timestamp = str(int((time.time() % 1) * 10**8))
     ascii_list = [binary_string[i:i+8] for i in range(0, len(binary_string), 8)]
     ascii_string = []
     for char_list in ascii_list:
@@ -72,6 +67,13 @@ def translate_to_ASCII(binary_string):
         for char in char_list:
             string += str(char)
         num = int(string, 2) % 127
+        num = num if num > 32 else num + 33
+        if num == 92:
+            num += 1
+        ascii_string.append(chr(num))
+    timestamp = [timestamp[i:i+2] for i in range(0, len(timestamp), 2)]
+    for num in timestamp:
+        num = int(num)
         num = num if num > 32 else num + 33
         if num == 92:
             num += 1
@@ -95,10 +97,6 @@ def printX():
             str += " "
         n += 1
     print(str)
-
-def print_ASCII():
-    global dataCurrent
-    print(translate_to_ASCII(dataCurrent))
 
 def generate():
     arrayLength = SIZE

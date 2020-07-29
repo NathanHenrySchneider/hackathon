@@ -11,9 +11,6 @@ KEY_PROMPT = "Please enter your key: "
 
 # thread function - handling requests
 def handle_requests(c):
-    #while True:
-
-    # data received from client
     username = c.recv(1024).decode('ascii')
 
     if check_valid_user(username):
@@ -21,10 +18,9 @@ def handle_requests(c):
         c.send(response.encode('ascii'))
         key = c.recv(1024).decode('ascii')
         if key == USER_KEYS[username]:
-            print("Key is correct")
             new_key = get_current_key()
             USER_KEYS[username] = new_key
-            response = "That is the correct key. Your new key is:  " + new_key
+            response = "That is the correct key. Your new key is: " + new_key
             c.send(response.encode('ascii'))
         else:
             response = "That is not the correct key, please try again."
@@ -40,7 +36,7 @@ def handle_requests(c):
 def check_valid_user(username):
     return (username in USER_KEYS)
 
-def Main():
+def main():
     host = ""
 
     # reverse a port on your computer
@@ -54,10 +50,8 @@ def Main():
 
     # put the socket into listening mode
     s.listen(5)
-
     print("Server is ready for connection...\n")
 
-    # a forever loop until client wants to exit
     while True:
 
         # establish connection with client
@@ -71,4 +65,4 @@ def Main():
 
 
 if __name__ == '__main__':
-    Main()
+    main()

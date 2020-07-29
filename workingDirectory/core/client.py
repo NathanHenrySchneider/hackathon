@@ -2,25 +2,12 @@
 import socket
 from server import KEY_PROMPT
 
-global key
-key = ''
-
-def retrieve_new_key(s, old_key):
-    global key
-    # message sent to server
-    s.send(old_key.encode('ascii'))
-    # message received from server
-    data = s.recv(1024)
-    # print the received message
-    key = data.decode('ascii')
-
 def check_username(s, username):
     s.send(username.encode('ascii'))
     response = s.recv(1024) # hung here
     return response.decode('ascii')
 
 def Main():
-    global key
     # local host IP '127.0.0.1'
     host = '127.0.0.1'
 
