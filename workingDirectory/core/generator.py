@@ -51,19 +51,14 @@ def arrayAnalysis():
 
 
 def generatorCycle():
-    #while(True):
     global ruleSet
     changeRuleSet()
-    #printRulesAndData()
+    #while True:
     for i in range(ITERATIONS):
-        #printX()
         print_ASCII()
         arrayAnalysis()
         changeRuleSet()
-        #printRulesAndData()
-    #printX()
     print_ASCII()
-    #print(dataCurrent)
 
 def changeRuleSet():
     global ruleSet
@@ -71,8 +66,6 @@ def changeRuleSet():
 
 def translate_to_ASCII(binary_string):
     ascii_list = [binary_string[i:i+8] for i in range(0, len(binary_string), 8)]
-    #print(binary_string)
-    #print(ascii_list)
     ascii_string = []
     for char_list in ascii_list:
         string = ''
@@ -105,13 +98,11 @@ def print_ASCII():
     global dataCurrent
     print(translate_to_ASCII(dataCurrent))
 
-def init(length):
-    arrayLength = length
+def generate():
+    arrayLength = SIZE
     generate_initial_seed()
     generatorCycle()
 
-def main():
-    init(SIZE)
-
-if __name__ == "__main__":
-    main()
+def get_current_key():
+    global dataCurrent
+    return translate_to_ASCII(dataCurrent)
