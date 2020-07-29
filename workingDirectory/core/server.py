@@ -23,8 +23,10 @@ def handle_requests(c):
         # change later
         print('Handling Requests')
 
+        new_data = get_current_key()
+        new_data = new_data.encode('ascii')
         # send back string to client
-        c.send(data)
+        c.send(new_data)
 
     # connection closed
     c.close()
@@ -60,7 +62,6 @@ def Main():
         # Start a new thread and return its identifier
         start_new_thread(handle_requests, (c,))
 
-        # start_new_thread(generate)
     s.close()
 
 

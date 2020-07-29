@@ -55,10 +55,10 @@ def generatorCycle():
     changeRuleSet()
     while True:
     #for i in range(ITERATIONS):
-        print_ASCII()
+        #print_ASCII()
         arrayAnalysis()
         changeRuleSet()
-    print_ASCII()
+    #print_ASCII()
 
 def changeRuleSet():
     global ruleSet

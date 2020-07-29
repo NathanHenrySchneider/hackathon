@@ -34,6 +34,11 @@ def Main():
         print('Key: ', key)
         retrieve_new_key(s, old_key)
         print('Key: ', key)
+        ans = input('\nDo you want to continue(y/n) :')
+        if ans == 'y':
+            continue
+        else:
+            break
 
     # close the connection
     s.close()
