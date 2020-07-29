@@ -7,10 +7,10 @@ import random
 # class Generator():
 
 
-arrayLength = 10
+arrayLength = 20
 dataCurrent = []
 dataPrevious = []
-ruleSet = "01001000"
+ruleSet = "01011000"
 
 def generate_initial_seed():
     global arrayLength
@@ -25,57 +25,73 @@ def generate_initial_seed():
 
 def bitWiseCalc(neighborhood, index):
     global dataCurrent
-    mask = 0x1
-    mask = mask << 2
-    mask = ~mask
-    neighborhood = neighborhood & mask
     neighborhood = neighborhood << 1
-    if (index != arrayLength - 1):
+    #print("shift:" +str(neighborhood))
+    neighborhood = neighborhood & 7
+    #print("and7: " + str(neighborhood))
+    #print("index: " + str(index))
+    #print("currind: " + str(dataCurrent[index]))
+    if (index != arrayLength):
+        # print("index: " + str(index))
+        # print("currind: " + str(dataCurrent[index]))
         neighborhood = neighborhood | dataCurrent[index]
-    #print(neighborhood)
+    #print("nieghCalc: " + str(neighborhood))
+    #print("neighborhood:" + str(neighborhood) + "\n")
     return neighborhood
 
 def arrayAnalysis():
     global dataCurrent
-    index = 0
-    neighborhood = int("0" + str((10 * dataCurrent[index]) + dataCurrent[index + 1]), base=2)
+    count = 0
+    neighborhood = int( ("0" + str(dataCurrent[0]) + str(dataCurrent[1])) , 2)
+    #print("start: " + str(neighborhood))
     arr = [0] * arrayLength
-    arr[index] = int(ruleSet [neighborhood])
-    while(index < arrayLength):
-        arr[index] = int(ruleSet [neighborhood])
+    #arr[0] = int(ruleSet [neighborhood])
+    index = 2
+    while(index < arrayLength + 1):
+        #print("ruleSet: " + (ruleSet [neighborhood]))
+        arr[count] = int(ruleSet [neighborhood])
         neighborhood = bitWiseCalc(neighborhood, index)
+        #print("while: " + str(neighborhood))
+        count += 1
         index += 1
-
+    arr[count] = int(ruleSet [neighborhood])
     dataPrevious = dataCurrent
     dataCurrent = arr
 
 
 
 def generatorCycle():
-    for i in range(10):
-        print(dataCurrent)
+    while(True):
+    #for i in range(20):
+        #print(dataCurrent)
+        prnt()
         arrayAnalysis()
-    print(dataCurrent)
+    prnt()
+    #print(dataCurrent)
 
 def prnt():
     global dataCurrent
     n = 0
+    str = ""
     while (n < arrayLength):
-        print(dataCurrent[n])
+        if (dataCurrent[n] == 1):
+            str += "X"
+        else:
+            str += " "
         n += 1
-    print("")
+    print(str)
 
 def __init__(length):
-    print("VGUHB JHUNHs")
+    #print("VGUHB JHUNHs")
     arrayLength = length
     generate_initial_seed()
-    print("VGUHB JHUNHs")
+    #print("VGUHB JHUNHs")
     generatorCycle()
 
 def main():
-    print("yugvbhjuibjn")
-    __init__(10)
-    print("UYUHUUJHUIJUI")
+    #print("yugvbhjuibjn")
+    __init__(20)
+    #print("UYUHUUJHUIJUI")
 
 if __name__ == "__main__":
     main()
