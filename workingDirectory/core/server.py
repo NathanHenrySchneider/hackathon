@@ -17,7 +17,6 @@ def handle_requests(c):
     username = c.recv(1024).decode('ascii')
 
     if check_valid_user(username):
-        print("User is valid")
         response = KEY_PROMPT
         c.send(response.encode('ascii'))
         key = c.recv(1024).decode('ascii')
@@ -25,10 +24,12 @@ def handle_requests(c):
             print("Key is correct")
             new_key = get_current_key()
             USER_KEYS[username] = new_key
-            response = "That is the correct key. Your new key is " + new_key
+            response = "That is the correct key. Your new key is:  " + new_key
+            c.send(response.encode('ascii'))
+        else:
+            response = "That is not the correct key, please try again."
             c.send(response.encode('ascii'))
     else:
-        print("User is new")
         key = get_current_key()
         USER_KEYS[username] = key
         response = "You are a new user, your key is: " + key
@@ -48,27 +49,23 @@ def Main():
     port = 12345
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.bind((host, port))
-    print("socket binded to port", port)
 
     start_new_thread(generate, ())
 
     # put the socket into listening mode
-    s.listen(0)    
-    print("socket is listening")
+    s.listen(5)
+
+    print("Server is ready for connection...\n")
 
     # a forever loop until client wants to exit
     while True:
 
         # establish connection with client
-        print("Accepting connection")
         c, addr = s.accept()
         s.setblocking(1)
 
-        # lock acquired by client
-        print('Connected to :', addr[0], ':', addr[1])
-
         # Start a new thread and return its identifier
-        print("Starting Thread")
+        print("Starting new client thread.")
         start_new_thread(handle_requests, (c,))
     s.close()
 
