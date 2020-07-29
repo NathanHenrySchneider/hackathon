@@ -1,5 +1,6 @@
 # Import socket module
 import socket
+from server import KEY_PROMPT
 
 global key
 key = ''
@@ -13,6 +14,10 @@ def retrieve_new_key(s, old_key):
     # print the received message
     key = data.decode('ascii')
 
+def check_username(s, username):
+    s.send(username.encode('ascii'))
+    response = s.recv(1024) # hung here
+    return response.decode('ascii')
 
 def Main():
     global key
@@ -27,18 +32,30 @@ def Main():
     # connect to server on local computer
     s.connect((host,port))
 
-    # key you send to server
-    old_key = ';<h\Z(d7ipxQ]pQ*?"u"b*=#&{p6GS`+;<h\Z(d7ipxQ]pQ*?"u"b*=#&{p6GS`+;<h\Z(d7ipxQ]pQ*?"u"b*=#&{p6GS`+;<h\Z(d7ipxQ]pQ*?"u"b*=#&{p6GS`+;<h\Z(d7ipxQ]pQ*?"u"b*=#&{p6GS`+;<h\Z(d7ipxQ]pQ*?"u"b*=#&{p6GS`+'
-    while True:
+    username = input('Please enter your username: ')
+    response = check_username(s, username)
 
-        print('Key: ', key)
-        retrieve_new_key(s, old_key)
-        print('Key: ', key)
-        ans = input('\nDo you want to continue(y/n) :')
-        if ans == 'y':
-            continue
-        else:
-            break
+    if response == KEY_PROMPT:
+        key = input(KEY_PROMPT)
+        s.send(key.encode('ascii'))
+        response = s.recv(1024).decode('ascii')
+        print(response)
+    else:
+        print(response)
+
+
+    # key you send to server
+    # old_key = ';<h\Z(d7ipxQ]pQ*?"u"b*=#&{p6GS`+;<h\Z(d7ipxQ]pQ*?"u"b*=#&{p6GS`+;<h\Z(d7ipxQ]pQ*?"u"b*=#&{p6GS`+;<h\Z(d7ipxQ]pQ*?"u"b*=#&{p6GS`+;<h\Z(d7ipxQ]pQ*?"u"b*=#&{p6GS`+;<h\Z(d7ipxQ]pQ*?"u"b*=#&{p6GS`+'
+    # while True:
+
+    #     print('Key: ', key)
+    #     retrieve_new_key(s, old_key)
+    #     print('Key: ', key)
+    #     ans = input('\nDo you want to continue(y/n): ')
+    #     if ans == 'y':
+    #         continue
+    #     else:
+    #         break
 
     # close the connection
     s.close()

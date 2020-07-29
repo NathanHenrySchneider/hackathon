@@ -73,6 +73,8 @@ def translate_to_ASCII(binary_string):
             string += str(char)
         num = int(string, 2) % 127
         num = num if num > 32 else num + 33
+        if num == 92:
+            num += 1
         ascii_string.append(chr(num))
     return ''.join(ascii_string)
 

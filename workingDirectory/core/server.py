@@ -6,31 +6,39 @@ import threading
 from generator import generate, get_current_key
 
 print_lock = threading.Lock()
+USER_KEYS = {'dakota': 'hello'}
+KEY_PROMPT = "Please enter your key: "
+
 
 # thread function - handling requests
 def handle_requests(c):
-    while True:
+    #while True:
 
-        # data received from client
-        data = c.recv(1024)
-        if not data:
-            print('Bye')
+    # data received from client
+    username = c.recv(1024).decode('ascii')
 
-            # lock released on exit
-            print_lock.release()
-            break
+    if check_valid_user(username):
+        print("User is valid")
+        response = KEY_PROMPT
+        c.send(response.encode('ascii'))
+        key = c.recv(1024).decode('ascii')
+        if key == USER_KEYS[username]:
+            print("Key is correct")
+            new_key = get_current_key()
+            USER_KEYS[username] = new_key
+            response = "That is the correct key. Your new key is " + new_key
+            c.send(response.encode('ascii'))
+    else:
+        print("User is new")
+        key = get_current_key()
+        USER_KEYS[username] = key
+        response = "You are a new user, your key is: " + key
+        c.send(response.encode('ascii'))
 
-        # change later
-        print('Handling Requests')
-
-        new_data = get_current_key()
-        new_data = new_data.encode('ascii')
-        # send back string to client
-        c.send(new_data)
-
-    # connection closed
     c.close()
 
+def check_valid_user(username):
+    return (username in USER_KEYS)
 
 def Main():
     host = ""
@@ -43,25 +51,27 @@ def Main():
     s.bind((host, port))
     print("socket binded to port", port)
 
-    # put the socket into listening mode
-    s.listen(5)
-    print("socket is listening")
-
     start_new_thread(generate, ())
+
+    # put the socket into listening mode
+    s.listen(0)    
+    print("socket is listening")
 
     # a forever loop until client wants to exit
     while True:
 
         # establish connection with client
+        print("Accepting connection")
         c, addr = s.accept()
+        s.setblocking(1)
 
         # lock acquired by client
         print_lock.acquire()
         print('Connected to :', addr[0], ':', addr[1])
 
         # Start a new thread and return its identifier
+        print("Starting Thread")
         start_new_thread(handle_requests, (c,))
-
     s.close()
 
 
