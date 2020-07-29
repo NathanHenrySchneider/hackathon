@@ -53,8 +53,8 @@ def arrayAnalysis():
 def generatorCycle():
     global ruleSet
     changeRuleSet()
-    #while True:
-    for i in range(ITERATIONS):
+    while True:
+    #for i in range(ITERATIONS):
         print_ASCII()
         arrayAnalysis()
         changeRuleSet()

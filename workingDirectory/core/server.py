@@ -3,7 +3,7 @@ import socket
 # import thread module
 from _thread import *
 import threading
-from generator import main
+from generator import generate, get_current_key
 
 print_lock = threading.Lock()
 
@@ -29,9 +29,6 @@ def handle_requests(c):
     # connection closed
     c.close()
 
-def generate:
-    main()
-
 
 def Main():
     host = ""
@@ -47,6 +44,8 @@ def Main():
     # put the socket into listening mode
     s.listen(5)
     print("socket is listening")
+
+    start_new_thread(generate, ())
 
     # a forever loop until client wants to exit
     while True:
