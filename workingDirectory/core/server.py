@@ -1,12 +1,11 @@
 # first of all import the socket library
 import socket
-# import thread module
+import time
 from _thread import *
 import threading
 from generator import generate, get_current_key
 
-print_lock = threading.Lock()
-USER_KEYS = {'dakota': 'hello'}
+USER_KEYS = {}
 KEY_PROMPT = "Please enter your key: "
 
 
@@ -66,7 +65,6 @@ def Main():
         s.setblocking(1)
 
         # lock acquired by client
-        print_lock.acquire()
         print('Connected to :', addr[0], ':', addr[1])
 
         # Start a new thread and return its identifier

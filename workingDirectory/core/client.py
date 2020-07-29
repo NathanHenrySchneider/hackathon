@@ -32,7 +32,7 @@ def Main():
     # connect to server on local computer
     s.connect((host,port))
 
-    username = input('Please enter your username: ')
+    username = input('\nPlease enter your username: ')
     response = check_username(s, username)
 
     if response == KEY_PROMPT:
@@ -42,22 +42,8 @@ def Main():
         print(response)
     else:
         print(response)
+    print()
 
-
-    # key you send to server
-    # old_key = ';<h\Z(d7ipxQ]pQ*?"u"b*=#&{p6GS`+;<h\Z(d7ipxQ]pQ*?"u"b*=#&{p6GS`+;<h\Z(d7ipxQ]pQ*?"u"b*=#&{p6GS`+;<h\Z(d7ipxQ]pQ*?"u"b*=#&{p6GS`+;<h\Z(d7ipxQ]pQ*?"u"b*=#&{p6GS`+;<h\Z(d7ipxQ]pQ*?"u"b*=#&{p6GS`+'
-    # while True:
-
-    #     print('Key: ', key)
-    #     retrieve_new_key(s, old_key)
-    #     print('Key: ', key)
-    #     ans = input('\nDo you want to continue(y/n): ')
-    #     if ans == 'y':
-    #         continue
-    #     else:
-    #         break
-
-    # close the connection
     s.close()
 
 if __name__ == '__main__':
