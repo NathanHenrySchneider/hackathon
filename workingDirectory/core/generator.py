@@ -14,13 +14,13 @@ ruleSet = ''
 
 def generate_initial_seed():
     global arrayLength
-    arr = [0] * arrayLength
+    seed_array = [0] * arrayLength
     index = 0
     while (index < arrayLength):
-        arr[index] = random.randint(0, 1)
+        seed_array[index] = random.randint(0, 1)
         index += 1
     global dataCurrent
-    dataCurrent = arr
+    dataCurrent = seed_array
 
 
 def bitWiseCalc(neighborhood, index):
